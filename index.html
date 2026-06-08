@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Мира | Крылова 4, 4 этаж, 408 кабинет.</title>
+  <link rel="manifest" href="/MiraAN6/manifest.json">
+<link rel="apple-touch-icon" href="/MiraAN6/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Мира">
+
+    <style>
+        .hidden-content.show { max-height: 12000px; opacity: 1; padding: 16px; margin-top: 16px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a0f1e 0%, #0a1a2a 100%);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 12px;
+            padding-bottom: 80px;
+        }
+        .main-wrapper { max-width: 1400px; width: 100%; margin: 0 auto; }
+        .box {
+            background: rgba(15, 25, 45, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 20px;
+            margin: 16px auto;
+            max-width: 1200px;
+            width: 100%;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+        }
+        .logo { width: 190px; border-radius: 50%; cursor: pointer; }
+        .hero-title img { width: 90%; cursor: pointer; text-align: center; margin: 0 auto; display: block; }
+        .gradient-text {
+            background: linear-gradient(135deg, #fff8e7, #ffd966, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            font-size: clamp(20px, 5vw, 28px);
+            margin: 0px 0;
+        }
+        .slider-container {
+            margin: 20px auto;
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            max-width: 600px;
+        }
+        .slides { display: flex; transition: transform 0.5s ease; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; display: block; cursor: pointer; }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: #ffd966;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,217,102,0.4); cursor: pointer; }
+        .dot.active { background: #ffd966; width: 25px; border-radius: 10px; }
+        .video-section { max-width: 600px; margin: 20px auto; }
+        .video-title { text-align: center; color: #ffd966; margin-bottom: 15px; }
+        .video { width: 100%; border-radius: 24px; }
+        .toggle-btn {
+            background: linear-gradient(45deg, #ffb347, #ff8c00);
+            border: none;
+            padding: 20px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            width: fit-content;
+        }
+        .weekdays-title { text-align: center; color: #ffd966; font-size: 18px; margin: 20px 0; }
+        .weekdays-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+        .day-card {
+            background: linear-gradient(145deg, #1e2a3a, #0f1a24);
+            border: 2px solid rgba(255,217,102,0.3);
+            border-radius: 20px;
+            padding: 16px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 80px;
+        }
+        .day-card:hover { transform: translateY(-5px); border-color: #ffd966; }
+        .day-name { font-size: 24px; font-weight: 800; color: #ffd966; }
+        .day-sub { font-size: 12px; color: #ffaa66; margin-top: 6px; }
+        .hidden-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+        }
+        .hidden-content.show { max-height: 50000px; opacity: 1; padding: 16px; margin-top: 16px; }
+        
+        .служащий-карточка {
+            background: rgba(20, 30, 45, 0.8);
+            border-radius: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,217,102,0.2);
+        }
+        .имя-служащего {
+            background: linear-gradient(135deg, #ffb34730, #ff8c0030);
+            padding: 14px 18px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffdd99;
+            border-bottom: 2px solid #ffb347;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .edit-name-btn {
+            background: #d4af37;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .дни-сетка {
+            display: grid;
+            gap: 8px;
+            padding: 14px;
+        }
+        @media (min-width: 801px) {
+            .служащий-карточка .дни-сетка { grid-template-columns: repeat(7, 1fr); }
+        }
+        @media (max-width: 800px) and (min-width: 551px) {
+            .служащий-карточка .дни-сетка { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 550px) {
+            .служащий-карточка .дни-сетка { grid-template-columns: repeat(2, 1fr); }
+        }
+        .день-ячейка {
+            background: rgba(30, 40, 55, 0.6);
+            border-radius: 16px;
+            padding: 10px;
+            text-align: center;
+        }
+        .название-дня {
+            font-size: 12px;
+            font-weight: bold;
+            color: #ffd966;
+            display: block;
+        }
+        .подзаголовок {
+            font-size: 10px;
+            color: #ffaa66;
+            display: block;
+        }
+        .значение-служения {
+            font-size: 14px;
+            padding: 6px;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.3);
+            cursor: pointer;
+            margin-top: 5px;
+            color: #faf7f7;
+        }
+        .значение-служения.свободно {
+            background: linear-gradient(145deg, #1e7a4a, #0f5e38);
+            color: white;
+            font-weight: bold;
+        }
+        .кнопка-подробнее {
+            background: rgba(255,217,102,0.2);
+            border: 1px solid #ffd966;
+            padding: 8px 16px;
+            margin: 12px 14px 14px auto;
+            border-radius: 30px;
+            color: #ffd966;
+            font-size: 13px;
+            cursor: pointer;
+            width: fit-content;
+            transition: all 0.3s;
+        }
+        .кнопка-подробнее:hover {
+            background: #ffd966;
+            color: #1a2a3a;
+            transform: scale(1.02);
+        }
+        
+        .modal-day {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-day-content {
+            background: linear-gradient(135deg, #1e2a3a, #0f1a24);
+            border-radius: 32px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #ffd966;
+        }
+        .modal-day-content h3 { color: #ffd966; font-size: 28px; margin-bottom: 20px; text-align: center; }
+        .modal-day-content p { color: #f0f0f0; line-height: 1.6; white-space: pre-wrap; }
+        .modal-day-close {
+            background: #ff8c42;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        .central-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 550px; margin: 0 auto; }
+        .lock-button {
+            background: radial-gradient(circle at 30% 25%, #f6e7c5, #deb887);
+            border: none;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .lock-svg { width: 60px; height: 60px; }
+        .info-panel {
+            background: rgba(255,248,225,0.95);
+            border-radius: 42px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            display: none;
+        }
+        .info-panel.visible { display: block; }
+        .info-title { font-size: 24px; color: #7a5c2e; margin-bottom: 15px; }
+        .edit-btn {
+            background: #d4af37;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px;
+        }
+        .edit-btn.danger { background: #f44336; color: white; }
+        .edit-btn.success { background: #4CAF50; color: white; }
+        .edit-status {
+            margin-top: 15px;
+            padding: 10px;
+            background: #333;
+            border-radius: 30px;
+            color: #ffd966;
+        }
+        
+        .container {
+            background: rgba(15, 25, 45, 0.75);
+            border-radius: 32px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .container h1 { color: #ffd966; font-size: 24px; margin-bottom: 10px; }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            background: #0f1a24;
+            border: 2px solid #ffd966;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+        }
+        button[type="submit"] {
+            background: #ff8c42;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .developer-card {
+            width: 150px;
+            background: linear-gradient(145deg, #212e42, #0f1825);
+            border-radius: 28px;
+            border: 2px solid #ffd966;
+            padding: 15px;
+            text-align: center;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        .dev-avatar { width: 70px; border-radius: 50%; }
+        .dev-text { color: #ffd966; margin-top: 10px; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: #fef7e0;
+            border-radius: 48px;
+            padding: 30px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+        }
+        .modal-card h3 { color: #7a5c2e; margin-bottom: 20px; }
+        .password-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e4c37b;
+            border-radius: 60px;
+            text-align: center;
+            font-size: 18px;
+            margin: 15px 0;
+        }
+        .modal-buttons { display: flex; gap: 10px; justify-content: center; }
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .modal-btn.primary { background: #d4af37; }
+        .modal-btn.secondary { background: #ccc; }
+        .ssylki { display: flex; gap: 10px; justify-content: center; margin: 15px 0; flex-wrap: wrap; }
+        a { text-decoration: none; background: #ee6e06; color: #000; padding: 10px 15px; border-radius: 30px; display: inline-block; }
+        .modal-gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 30000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-gallery.active { display: flex; }
+        .modal-gallery-image { max-width: 90vw; max-height: 90vh; }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #ffd966;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .edit-mode-active .day-card { border: 2px solid #ffd966 !important; box-shadow: 0 0 10px #ffd966; }
+        .edit-mode-active .значение-служения { background: rgba(255,217,102,0.3) !important; }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50000;
+        }
+        .loading-overlay.active { display: flex; }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ffd966;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .daily-reader {
+            color: #ccc;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 28px;
+            padding: 20px;
+            border-left: 6px solid #ffd966;
+        }
+        .daily-date {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffd966;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .daily-text {
+            font-size: 16px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: #f0f0f0;
+        }
+        .daily-text strong { color: #ffd966; }
+    </style>
+</head>
+<body>
+<!-- Контейнер с двумя кнопками установки -->
+<div id="install-buttons-container" style="position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 15px; z-index: 1000;">
+    
+    <!-- Кнопка 1: Установить PWA -->
+    <button id="installPwaBtn" style="display: none; background: linear-gradient(45deg, #4CAF50, #45a049); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        📱 Установить приложение
+    </button>
+    
+    <!-- Кнопка 2: Добавить на экран (iOS) -->
+    <button id="iosGuideBtn" style="display: none; background: linear-gradient(45deg, #2196F3, #0b7dda); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        📲 Добавить на экран
+    </button>
+    
+</div>
+
+<!-- Модальное окно с инструкцией для iOS -->
+<div id="iosModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center;">
+    <div style="background: #1e2a3a; border-radius: 30px; padding: 30px; max-width: 300px; text-align: center; border: 2px solid #ffd966;">
+        <h3 style="color: #ffd966; margin-bottom: 20px;">📱 Как добавить на экран</h3>
+        <p style="color: white; margin-bottom: 20px;">
+            1. Нажмите кнопку <strong style="color: #ffd966;">«Поделиться»</strong><br>
+            <span style="font-size: 24px;">⬆️</span><br><br>
+            2. Выберите <strong style="color: #ffd966;">«На экран «Домой»</strong><br><br>
+            3. Нажмите <strong style="color: #ffd966;">«Добавить»</strong>
+        </p>
+        <button id="closeIosModal" style="background: #ff8c42; border: none; padding: 10px 30px; border-radius: 30px; color: white; cursor: pointer;">Понятно</button>
+    </div>
+</div>
+
+<script>
+// Кнопки установки PWA (работает на Android/Chrome)
+let installPromptEvent = null;
+const installBtn = document.getElementById('installPwaBtn');
+const iosBtn = document.getElementById('iosGuideBtn');
+const iosModal = document.getElementById('iosModal');
+
+// Определяем устройство
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isAndroid = /Android/.test(navigator.userAgent);
+
+// Перехватываем событие установки PWA
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    installPromptEvent = e;
+    
+    // Показываем кнопку установки ТОЛЬКО на Android
+    if (isAndroid) {
+        installBtn.style.display = 'block';
+    }
+});
+
+// Установка по клику
+installBtn.addEventListener('click', async () => {
+    if (!installPromptEvent) return;
+    
+    installBtn.style.display = 'none';
+    const result = await installPromptEvent.prompt();
+    
+    if (result.outcome === 'accepted') {
+        console.log('Пользователь установил приложение');
+    }
+    installPromptEvent = null;
+});
+
+// Для iOS — показываем кнопку с инструкцией
+if (isIOS) {
+    iosBtn.style.display = 'block';
+    
+    iosBtn.addEventListener('click', () => {
+        iosModal.style.display = 'flex';
+    });
+    
+    document.getElementById('closeIosModal').addEventListener('click', () => {
+        iosModal.style.display = 'none';
+    });
+}
+
+// Если PWA уже установлено — скрываем кнопки
+window.addEventListener('appinstalled', () => {
+    installBtn.style.display = 'none';
+    iosBtn.style.display = 'none';
+});
+
+// Если браузер не поддерживает установку — показываем iOS-кнопку как универсальную
+setTimeout(() => {
+    if (!isIOS && !installPromptEvent && !isAndroid) {
+        // На компьютере или в неподдерживаемом браузере
+        iosBtn.style.display = 'block';
+        iosBtn.textContent = '📱 Как установить приложение';
+    }
+}, 1000);
+</script>
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="main-wrapper">
+    <div class="box">
+        <div style="text-align:center;"><img class="logo gallery-img" src="Логотип.jpg" alt="Логотип"></div>
+        <div class="hero-title">
+            <img src="image (60).png" alt="" class="gallery-img" style="width:90%; margin-left:10%;">
+        </div>
+        <div class="gradient-text">Первое собрание и открытие было на улице 9 Мая 28'б' <br> 2012 года.</div>
+        <div class="ssylki">
+            <a href="https://web.max.ru/-69244818096333" target="_blank">Чат рабочий</a>
+        </div>
+       
+        
+        <div class="video-section">
+            <div class="video-title">🎬 видео как добраться до мира</div>
+            <video class="video" src="video.mp4" autoplay loop playsinline muted></video>
+        </div>
+         <div style="text-align:center"><img src="правила.jpeg" style="width:90%; cursor:pointer" class="gallery-img"></div>
+        <div class="weekdays-title">📅 МЕРОПРИЯТИЯ ПО ДНЯМ</div>
+        <div class="weekdays-grid" id="weekdaysGrid">
+            <div class="day-card" data-day="ПН"><div class="day-name">ПН</div><div class="day-sub">Понедельник</div></div>
+            <div class="day-card" data-day="ВТ"><div class="day-name">ВТ</div><div class="day-sub">Вторник</div></div>
+            <div class="day-card" data-day="СР"><div class="day-name">СР</div><div class="day-sub">Среда</div></div>
+            <div class="day-card" data-day="ЧТ"><div class="day-name">ЧТ</div><div class="day-sub">Четверг</div></div>
+            <div class="day-card" data-day="ПТ"><div class="day-name">ПТ</div><div class="day-sub">Пятница</div></div>
+            <div class="day-card" data-day="СБ"><div class="day-name">СБ</div><div class="day-sub">Суббота</div></div>
+            <div class="day-card" data-day="ВС"><div class="day-name">ВС</div><div class="day-sub">Воскресенье</div></div>
+        </div>
+        <a href="https://sputnik-na.ru/interesnoe/spikerskie" target="_blank" class="toggle-btn">Спикерские</a>
+        <button class="toggle-btn" id="toggleServicesBtn">📋 Доступные вакантные служения</button>
+        <div class="hidden-content" id="servicesContent">
+            <div id="scheduleContainer"></div>
+        </div>
+        
+        <button class="toggle-btn" id="toggleDailyBtn">📖 Ежедневник</button>
+        <div class="hidden-content" id="dailyContent">
+            <div id="dailyGreetingContainer" class="daily-reader">
+                <div style="text-align:center; padding:20px;">Загрузка...</div>
+            </div>
+        </div>
+
+        <div class="box1">
+            <h2 style="color: #ccc;">✉️ Отправить анонимный вопрос на собрание гр.Мира</h2>
+            <form id="telegramForm">
+                <label for="message">Сообщение:</label><br>
+                <textarea id="message" name="message" rows="4" required placeholder="Ваш вопрос будет отправлен анонимно..."></textarea><br><br>
+                <button type="submit">🚀 Отправить анонимно</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="developer-card" onclick="window.open('https://max.ru/u/f9LHodD0cOLGAoQLDj9bbo1V2b7ZQiHidn8Aoth1LugsIB7poD49jis2uwY', '_blank')">
+    <img src="разработчик.jpg" alt="Разработчик" class="dev-avatar">
+    <div class="dev-text">Связь с разработчиком</div>
+</div>
+
+<div class="central-wrapper">
+    <button class="lock-button" id="lockBtn">
+        <svg class="lock-svg" viewBox="0 0 24 24" fill="none">
+            <path d="M17 9V7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7V9H6C4.89543 9 4 9.89543 4 11V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V11C20 9.89543 19.1046 9 18 9H17ZM9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7V9H9V7Z" fill="#5C3E1F"/>
+            <path d="M12 14C10.8954 14 10 14.8954 10 16C10 17.1046 10.8954 18 12 18C13.1046 18 14 17.1046 14 16C14 14.8954 13.1046 14 12 14Z" fill="#E8C87A"/>
+        </svg>
+    </button>
+    <div id="adminPanel" class="info-panel">
+        <div class="info-title">🗝️ Панель управления</div>
+        <button id="enableEditBtn" class="edit-btn success">✏️ Включить режим редактирования</button>
+        <button id="disableEditBtn" class="edit-btn danger" style="display:none">🔒 Выключить режим</button>
+        <button id="saveDataBtn" class="edit-btn">💾 Сохранить изменения в облако</button>
+        <button id="resetDataBtn" class="edit-btn">🔄 Сбросить всё</button>
+        <div id="editModeStatus" class="edit-status">⚙️ Режим редактирования: ВЫКЛ</div>
+        <div id="syncStatus" style="font-size:12px; margin-top:10px; color:#666;"></div>
+    </div>
+</div>
+
+<div id="passwordModal" class="modal-overlay">
+    <div class="modal-card">
+        <h3>🔒 Введите пароль</h3>
+        <input type="password" id="passwordInput" class="password-input" placeholder="Введите пароль">
+        <div class="modal-buttons">
+            <button id="submitPassword" class="modal-btn primary">Открыть</button>
+            <button id="closePasswordModal" class="modal-btn secondary">Отмена</button>
+        </div>
+        <div id="passwordError" style="color:red; margin-top:10px"></div>
+    </div>
+</div>
+
+<div id="dayModal" class="modal-day">
+    <div class="modal-day-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <button class="modal-day-close" id="closeDayModal">Закрыть</button>
+    </div>
+</div>
+
+<div id="galleryModal" class="modal-gallery">
+    <button class="modal-close-btn" id="closeGalleryBtn">&times;</button>
+    <img id="galleryImage" class="modal-gallery-image">
+</div>
+<script  src="egednevnik.js"></script>
+<script>
+// ===================== GOOGLE SHEETS ОТПРАВКА =====================
+const SCRIPT_URL1 = 'https://script.google.com/macros/s/AKfycbxD4z2D5w3xQ17h5z0wxtVmhplzdey6hJmw0TaAhk64qG3NBG4J1k6GWYegy2u6Dq9M_A/exec';
+
+function showToast(message, isError = false) {
+    let toast = document.getElementById('toastMsg');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toastMsg';
+        toast.style.cssText = 'position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:#333; color:#ffd966; padding:12px 24px; border-radius:40px; z-index:99999; border:2px solid #ffd966; font-size:14px; white-space:nowrap;';
+        document.body.appendChild(toast);
+    }
+    toast.style.background = isError ? '#8B0000' : '#1e7a4a';
+    toast.innerText = message;
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', 3000);
+}
+
+function setupGoogleSender() {
+    const form = document.getElementById('telegramForm');
+    const messageInput = document.getElementById('message');
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const text = messageInput.value.trim();
+        if (!text) {
+            showToast('❌ Введите текст перед отправкой', true);
+            return;
+        }
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '⏳ Отправка...';
+        submitBtn.disabled = true;
+        
+        try {
+            await fetch(SCRIPT_URL1, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: text,
+                    timestamp: new Date().toLocaleString('ru-RU')
+                })
+            });
+            showToast('✅ Сообщение отправлено в Google Таблицу!');
+            messageInput.value = '';
+        } catch (error) {
+            console.error('Ошибка:', error);
+            showToast('❌ Ошибка отправки', true);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// ===================== ЕЖЕДНЕВНИК (ВСТРОЕННЫЙ, БЕЗ ВНЕШНИХ ФАЙЛОВ) =====================
+
+
+
+// ===================== ОСТАЛЬНЫЕ ФУНКЦИИ =====================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6SY0kxfrDvX1u61BpLXjL-KFeGOIIQ5Du0qy0SU_bVa09kW-PlbFuKOhLuJtdSZkNWA/exec';
+
+let isEditMode = false;
+let servicesData = {};
+let eventsData = {};
+let serviceNamesData = {};
+
+const defaultServiceNames = {
+    "Ведущий": "Ведущий", "Чайханщик": "Чайханщик", "Уборщик": "Уборщик",
+    "Закупщик": "Закупщик", "Спикерхантер": "Спикерхантер", "ПБУ": "ПБУ",
+    "ПГО": "ПГО", "ПРЕДСЕДАТЕЛь": "ПРЕДСЕДАТЕЛь", "КАЗНАЧЕй": "КАЗНАЧЕй",
+    "замПГО": "замПГО", "РС": "РС", "ПСО": "ПСО", "Литком": "Литком"
+};
+
+const serviceDetails = {
+    "Ведущий": "1. Приходить на собрание не позднее, чем за 10 минут до начала собрания.\n2. Открывать помещение группы.\n3. Соблюдать основы ведения собрания.\n4. В тематические дни акцентировать внимание присутствующих на главной теме.\n5. В случае присутствия на группе новичка, акцентировать внимание присутствующих на том, что главная тема - Новичку.\n6. Уделять внимание новичкам после собрания и выдавать им бесплатную литературу.\n7. Вести учёт собранных в банку денег.\n8. Посещать все рабочие собрания группы МИРА.\n9. Представлять группе отчёт о проделанной работе.\n10. Следить за соблюдением правил ведения собрания.\n11. Пользоваться кубиком или прерывать высказывания.\n12. Заполнять «тетрадь для ведущего».\n13. Сообщать председателю группы о форс-мажорных обстоятельствах.\n14. Следить за порядком, чистотой после собрания.\n15. Мыть полы после собрания в отсутствие уборщика.\n16. Закрывать за собой помещение.\n17. Сообщать о своём уходе с должности не позднее, чем за одно рабочее собрание.\n18. Ведущий должен быть знаком со своими обязанностями до вступления в должность.\n\nВедущий на любой день недели избирается на 4 месяца.",
+    "Чайханщик": "1. Поддерживать на группе наличие чая, сахара, печенья, питьевой воды.\n2. Во время собрания выставлять на стол кружки, ложки, блюдца, доставать чай, сахар, печенье, наливать чай всем желающим. Новичкам и гостям в первую очередь.\n3. Следить за чистотой кружек, блюдец и заварочного чайника.\n4. Посещать все рабочие собрания группы МИРА.\n5. Представлять группе отчёт о проделанной работе.\n6. Сообщать о своём уходе с должности.\n\nЧайханщик избирается сроком на 3 месяца.",
+    "Уборщик": "1. Поддерживать на группе чистоту.\n2. Следить за чистотой полов, тряпок, ведер.\n3. Выносить мусор после группы.\n4. Посещать все рабочие собрания группы МИРА.\n5. Представлять группе отчёт о проделанной работе.\n6. Сообщать о своём уходе с должности.\n\nУборщик избирается сроком на 3 месяца.",
+    "Закупщик": "1. Закупать на группу все нужды группы.\n2. Регулярная отчетность перед группой о закупках.\n3. Поддерживать на группе наличие всех нужд.\n4. Взаимодействовать с чайханщиками.\n5. Посещать все рабочие собрания.\n6. Сообщать о своём уходе.\n\nЗакупщик избирается сроком на 6 месяцев.",
+    "Спикерхантер": "1. Обеспечить группу спикерской или семинаром.\n2. Давать информацию о мероприятиях заранее.\n3. Проговаривать со спикером о чистоте вести АН.\n4. Посещать все рабочие собрания.\n5. Найти спикера, который выздоравливает в АН.\n6. По запросу организовать онлайн спикерские.\n\nСпикерхантер избирается сроком на 6 месяцев.",
+    "ПБУ": "В обязанности Представителя подкомитета Больницы и Учреждения (БУ) входит:\n1. Посещение всех собраний БУ.\n2. Регулярная отчетность перед группой.\n3. Донесение потребностей группы до подкомитета.\n4. Посещать все рабочие собрания группы.\n5. Сообщать о своём уходе.\n\nПредставитель БУ избирается сроком на 12 месяцев.",
+    "ПГО": "В обязанности Представителя Группового Обслуживания (ПГО) входит:\n1. Посещение всех собраний ФПГ, МКО, региональных ассамблей.\n2. Активное участие в ФПГ, МКО.\n3. Регулярная отчетность перед группой.\n4. Донесение группового сознания до ФПГ, МКО.\n5. Поддерживать контакт с владельцем помещения.\n6. Приобретение литературы, жетонов.\n7. Сообщать о своём уходе.\n\nПГО избирается сроком на 12 месяцев.",
+    "ПСО": "В обязанности Представителя подкомитета Связи с Общественностью (СО) входит:\n1. Посещение всех собраний СО.\n2. Регулярная отчетность перед группой.\n3. Донесение потребностей группы до подкомитета.\n4. Посещать все рабочие собрания.\n5. Сообщать о своём уходе.\n\nПредставитель СО избирается сроком на 12 месяцев.",
+    "Литком": "В обязанности Представителя Литературного Комитета входит:\n1. Обеспечить группу литературой и сувенирной продукцией.\n2. Своевременно заказывать литературу.\n3. Организовать продажу литературы на группе.\n4. Посещать все рабочие собрания.\n5. Предоставлять отчет о проданной литературе.\n6. Бережно относиться к книгам.\n7. Посещать собрания подкомитета по литературе.\n\nПредставитель Литкома избирается сроком на 12 месяцев.",
+    "КАЗНАЧЕй": "В обязанности КАЗНАЧЕЯ входит:\n1. Вести учет собранных денежных средств.\n2. Посещать все рабочие собрания.\n3. Перечислять деньги в Литком за литературу.\n4. Представлять отчет о проделанной работе.\n5. Считать денежные средства после собрания.\n6. Следить, чтоб собранные деньги не смешивались с личными.\n7. Перечислять взносы в МСО.\n\nКазначей избирается сроком на 12 месяцев.",
+    "ПРЕДСЕДАТЕЛь": "В обязанности ПРЕДСЕДАТЕЛЯ входит:\n1. Посещать все рабочие собрания.\n2. Представлять отчет о проделанной работе.\n3. Проводить рабочие собрания.\n4. Поддерживать порядок и дисциплину.\n5. Формировать повестку на рабочем собрании.\n6. Поддерживать контакт с должностными лицами.\n7. Записывать, у кого и какие служения.\n8. Сообщать группе о вакансии служения.\n\nПредседатель избирается сроком на 12 месяцев.",
+    "замПГО": "В обязанности Заместителя ПГО входит:\n1. Оказывать помощь ПГО.\n2. Посещение собраний ФПГ, МКО в отсутствие ПГО.\n3. Регулярная отчетность перед группой.\n4. Донесение группового сознания.\n5. Быть в курсе событий на местности.\n6. Проводить рабочее собрание в отсутствие Председателя и ПГО.\n\nЗам. ПГО избирается сроком на 12 месяцев.",
+    "РС": "В обязанности Представителя подкомитета Развитие Сообщества (РС) входит:\n1. Посещение всех собраний РС.\n2. Регулярная отчетность перед группой.\n3. Донесение потребностей группы.\n4. Посещать все рабочие собрания.\n5. Сообщать о своём уходе.\n\nПредставитель РС избирается сроком на 12 месяцев."
+};
+
+const defaultEvents = {
+    "ПН": " Понедельник\n\n🕡 Утро 10:00-11:00\nУл. Крылова 4, 4 этаж, офис 408\nЕжедневник, 11-й шаг, медитация\nУтренний кофе!\n\n🕡 Вечер 19:00-20:15\nЕжедневник, вопрос-ответ по шагам",
+    "ВТ": " Вторник\n\n🕡 Утро 10:00-11:00\nЕжедневник, 11-й шаг, медитация\n\n🕡 Вечер 19:00-20:15\nНовый формат BLACKOUT\n\n🕡 Поздний вечер 21:00-22:00\nВопрос-ответ БЕЗ ЦЕНЗУРЫ \n\n🔗 Онлайн-подключение: https://telemost.yandex.ru/j/15060662537071",
+    "СР": "Среда\n\n🕡 Утро 10:00-11:00\nЕжедневник, 11-й шаг, медитация\nУтреннее рабочее собрание!\nУтренний кофе!\n🕡 Вечер 19:00-20:15\nСеминар: «Как встречать новичка»",
+    "ЧТ": " Пуэрный Четверг\n\n🕡 Утро 10:00-11:00\nЕжедневник, 11-й шаг, медитация\nУтренний кофе!\n🕡 Вечер 19:00-20:15\nБочонки\n20:30 - Рабочее собрание",
+    "ПТ": "Пятница\n\n🕡 Утро 10:00-11:00\nЕжедневник, 11-й шаг, медитация\nУтренний кофе!\n🕡 Вечер 19:00-20:15\nИзучение литературы\n\n🔗 Онлайн-подключение: https://telemost.yandex.ru/j/15060662537071",
+    "СБ": " Суббота\n\n🕡 16:00-17:15\nЕжедневник, свободная тема",
+    "ВС": " Воскресенье\n\n🕡 14:00-15:15\nЕжедневник, самоанализ"
+};
+
+function loadFromLocal() {
+    try {
+        const saved = localStorage.getItem('mir_services_backup');
+        if (saved) servicesData = JSON.parse(saved);
+        const savedEvents = localStorage.getItem('mir_events_backup');
+        if (savedEvents) eventsData = JSON.parse(savedEvents);
+        const savedNames = localStorage.getItem('mir_names_backup');
+        if (savedNames) serviceNamesData = JSON.parse(savedNames);
+    } catch(e) {}
+}
+
+function saveToLocal() {
+    localStorage.setItem('mir_services_backup', JSON.stringify(servicesData));
+    localStorage.setItem('mir_events_backup', JSON.stringify(eventsData));
+    localStorage.setItem('mir_names_backup', JSON.stringify(serviceNamesData));
+}
+
+function showLoading(show) {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.classList.toggle('active', show);
+}
+
+function loadFromCloud() {
+    showLoading(true);
+    const callbackName = 'jsonp_callback_' + Date.now();
+    window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        if (data.services) servicesData = data.services;
+        if (data.events) eventsData = data.events;
+        if (data.serviceNames) serviceNamesData = data.serviceNames;
+        saveToLocal();
+        showToast('✅ Данные загружены из облака');
+        showLoading(false);
+        refreshAll();
+    };
+    const script = document.createElement('script');
+    script.src = `${SCRIPT_URL}?callback=${callbackName}`;
+    script.onerror = function() {
+        delete window[callbackName];
+        loadFromLocal();
+        showToast('⚠️ Не удалось загрузить из облака, использованы локальные данные', true);
+        showLoading(false);
+        refreshAll();
+    };
+    document.body.appendChild(script);
+}
+
+function saveToCloud() {
+    showLoading(true);
+    const saves = [
+        { type: 'services', data: servicesData },
+        { type: 'events', data: eventsData },
+        { type: 'serviceNames', data: serviceNamesData }
+    ];
+    let completed = 0;
+    saves.forEach(save => {
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ type: save.type, [save.type]: save.data }),
+            headers: { 'Content-Type': 'application/json' }
+        }).finally(() => {
+            completed++;
+            if (completed === saves.length) {
+                saveToLocal();
+                showLoading(false);
+                showToast('✅ Данные сохранены в облако!');
+            }
+        });
+    });
+}
+
+function editServiceName(serviceKey, element) {
+    if (!isEditMode) return;
+    const currentName = serviceNamesData[serviceKey] || defaultServiceNames[serviceKey];
+    const input = document.createElement('input');
+    input.value = currentName;
+    input.style.cssText = 'padding:8px; border-radius:20px; border:2px solid #ffd966; background:#fff; font-size:14px; width:60%;';
+    const parent = element.parentNode;
+    element.style.display = 'none';
+    parent.appendChild(input);
+    input.focus();
+    function save() {
+        const newName = input.value.trim();
+        if (newName) {
+            serviceNamesData[serviceKey] = newName;
+            element.innerText = newName;
+            saveToCloud();
+        }
+        element.style.display = 'block';
+        input.remove();
+        refreshAll();
+    }
+    input.addEventListener('blur', save);
+    input.addEventListener('keypress', (e) => { if (e.key === 'Enter') save(); });
+}
+
+function editServiceElement(element, serviceKey, dayKey) {
+    if (!isEditMode) return;
+    const currentValue = element.innerText;
+    const input = document.createElement('input');
+    input.value = (currentValue === 'занято') ? '' : currentValue;
+    input.placeholder = 'Введите имя (оставьте пустым для "занято")';
+    input.style.cssText = 'width:100%; padding:6px; border-radius:12px; border:2px solid #ffd966; background:#fff; color:#000; font-size:13px; text-align:center;';
+    const parent = element.parentNode;
+    element.style.display = 'none';
+    parent.appendChild(input);
+    input.focus();
+    function saveNewValue() {
+        let newValue = input.value.trim();
+        if (newValue === '') newValue = 'занято';
+        element.innerText = newValue;
+        element.style.display = 'block';
+        input.remove();
+        if (newValue === 'занято') {
+            element.classList.add('свободно');
+        } else {
+            element.classList.remove('свободно');
+        }
+        if (!servicesData[serviceKey]) servicesData[serviceKey] = {};
+        servicesData[serviceKey][dayKey] = newValue;
+        saveToCloud();
+        showToast(`✅ ${serviceNamesData[serviceKey] || serviceKey}: ${dayKey} → ${newValue}`);
+    }
+    input.addEventListener('blur', saveNewValue);
+    input.addEventListener('keypress', (e) => { if (e.key === 'Enter') saveNewValue(); });
+}
+
+function showServiceDescription(serviceKey) {
+    const displayName = serviceNamesData[serviceKey] || defaultServiceNames[serviceKey];
+    const description = serviceDetails[serviceKey] || "Подробное описание служения временно недоступно.";
+    const modal = document.getElementById('dayModal');
+    document.getElementById('modalTitle').innerHTML = `📖 ${displayName}`;
+    document.getElementById('modalDescription').innerHTML = description;
+    modal.style.display = 'flex';
+}
+
+function generateServicesHTML() {
+    const servicesList = ["Ведущий", "Чайханщик", "Уборщик", "Закупщик", "Спикерхантер", "ПБУ", "ПГО", "ПСО", "Литком", "КАЗНАЧЕй", "ПРЕДСЕДАТЕЛь", "замПГО", "РС"];
+    const days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
+    const tripleService = ["Ведущий", "Чайханщик", "Уборщик"];
+    const lateEveningDays = ["ВТ", ];
+    
+    let html = '';
+    servicesList.forEach(serviceKey => {
+        const displayName = serviceNamesData[serviceKey] || defaultServiceNames[serviceKey];
+        const hasMultiTime = tripleService.includes(serviceKey);
+        html += `<div class="служащий-карточка" data-service-key="${serviceKey}">
+            <div class="имя-служащего">
+                <span class="service-name-text">${displayName}</span>
+                <button class="edit-name-btn" data-service="${serviceKey}">✏️</button>
+            </div>
+            <div class="дни-сетка">`;
+        
+        days.forEach(day => {
+            if (hasMultiTime) {
+                let times = ["Утро", "Вечер"];
+                if (lateEveningDays.includes(day)) times.push("Поздний вечер");
+                if (day === "СБ" || day === "ВС") times = times.filter(t => t !== "Утро");
+                
+                times.forEach(time => {
+                    let key = `${day}_${time === 'Утро' ? 'утро' : (time === 'Вечер' ? 'вечер' : 'поздний вечер')}`;
+                    let savedValue = 'занято';
+                    if (servicesData[serviceKey] && servicesData[serviceKey][key]) savedValue = servicesData[serviceKey][key];
+                    const isFree = savedValue === 'занято';
+                    html += `<div class="день-ячейка">
+                        <span class="название-дня">${day}</span>
+                        <span class="подзаголовок">${time}</span>
+                        <div class="значение-служения ${isFree ? 'свободно' : ''}" data-service="${serviceKey}" data-day-key="${key}">${savedValue}</div>
+                    </div>`;
+                });
+            } else {
+                let savedValue = 'занято';
+                if (servicesData[serviceKey] && servicesData[serviceKey][day]) savedValue = servicesData[serviceKey][day];
+                const isFree = savedValue === 'занято';
+                html += `<div class="день-ячейка">
+                    <span class="название-дня">${day}</span>
+                    <div class="значение-служения ${isFree ? 'свободно' : ''}" data-service="${serviceKey}" data-day-key="${day}">${savedValue}</div>
+                </div>`;
+            }
+        });
+        
+        html += `</div><div class="кнопка-подробнее" data-service="${serviceKey}">📖 Подробнее о служении</div></div>`;
+    });
+    return html;
+}
+
+function refreshServices() {
+    const container = document.getElementById('scheduleContainer');
+    if (container) {
+        container.innerHTML = generateServicesHTML();
+        document.querySelectorAll('.edit-name-btn').forEach(btn => {
+            const serviceKey = btn.getAttribute('data-service');
+            const nameSpan = btn.parentElement.querySelector('.service-name-text');
+            btn.addEventListener('click', () => editServiceName(serviceKey, nameSpan));
+        });
+        document.querySelectorAll('.значение-служения').forEach(el => {
+            const serviceKey = el.getAttribute('data-service');
+            const dayKey = el.getAttribute('data-day-key');
+            if (serviceKey && dayKey) {
+                const newEl = el.cloneNode(true);
+                el.parentNode.replaceChild(newEl, el);
+                newEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    editServiceElement(newEl, serviceKey, dayKey);
+                });
+            }
+        });
+        document.querySelectorAll('.кнопка-подробнее').forEach(btn => {
+            const serviceKey = btn.getAttribute('data-service');
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            newBtn.addEventListener('click', () => showServiceDescription(serviceKey));
+        });
+    }
+}
+
+function showEventEditModal(day, currentText) {
+    if (!isEditMode) {
+        const modal = document.getElementById('dayModal');
+        document.getElementById('modalTitle').innerHTML = day;
+        let displayText = currentText.replace(/\n/g, '<br>');
+        displayText = displayText.replace(/(https?:\/\/[^\s]+)/g, function(url) {
+            return `<a href="${url}" target="_blank" style="color:#ffd966; text-decoration:underline; word-break:break-all;">🔗 Онлайн подключение</a>`;
+        });
+        document.getElementById('modalDescription').innerHTML = displayText;
+        modal.style.display = 'flex';
+        return;
+    }
+    const modal = document.getElementById('dayModal');
+    document.getElementById('modalTitle').innerHTML = `✏️ Редактирование: ${day}`;
+    const descElem = document.getElementById('modalDescription');
+    const textarea = document.createElement('textarea');
+    textarea.value = currentText;
+    textarea.style.cssText = 'width:100%; height:300px; background:#1e2a3a; color:#fff; border:2px solid #ffd966; border-radius:16px; padding:12px; font-size:14px;';
+    const saveBtn = document.createElement('button');
+    saveBtn.innerText = '💾 Сохранить изменения';
+    saveBtn.style.cssText = 'margin-top:15px; background:#4CAF50; border:none; padding:12px; border-radius:30px; color:white; font-weight:bold; cursor:pointer; width:100%;';
+    descElem.innerHTML = '';
+    descElem.appendChild(textarea);
+    descElem.appendChild(saveBtn);
+    modal.style.display = 'flex';
+    saveBtn.onclick = () => {
+        const newText = textarea.value;
+        eventsData[day] = newText;
+        saveToCloud();
+        descElem.innerHTML = newText.replace(/\n/g, '<br>');
+        descElem.appendChild(saveBtn);
+        showToast(`✅ Мероприятие на ${day} сохранено`);
+        setTimeout(() => modal.style.display = 'none', 1500);
+    };
+}
+
+function setupDaysHandlers() {
+    const dayCards = document.querySelectorAll('.day-card');
+    dayCards.forEach(card => {
+        const day = card.getAttribute('data-day');
+        const eventText = eventsData[day] || defaultEvents[day];
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        newCard.setAttribute('data-day', day);
+        newCard.addEventListener('click', () => {
+            const text = eventsData[day] || defaultEvents[day];
+            showEventEditModal(day, text);
+        });
+        if (isEditMode) {
+            newCard.style.border = '2px solid #ffd966';
+            newCard.style.boxShadow = '0 0 10px #ffd966';
+        } else {
+            newCard.style.border = '2px solid rgba(255,217,102,0.3)';
+            newCard.style.boxShadow = 'none';
+        }
+    });
+}
+
+function setEditMode(enabled) {
+    isEditMode = enabled;
+    const enableBtn = document.getElementById('enableEditBtn');
+    const disableBtn = document.getElementById('disableEditBtn');
+    const statusDiv = document.getElementById('editModeStatus');
+    if (enabled) {
+        document.body.classList.add('edit-mode-active');
+        if (enableBtn) enableBtn.style.display = 'none';
+        if (disableBtn) disableBtn.style.display = 'inline-block';
+        if (statusDiv) statusDiv.innerHTML = '✏️ Режим редактирования: ВКЛЮЧЕН';
+        showToast('✏️ Режим редактирования ВКЛЮЧЕН!');
+    } else {
+        document.body.classList.remove('edit-mode-active');
+        if (enableBtn) enableBtn.style.display = 'inline-block';
+        if (disableBtn) disableBtn.style.display = 'none';
+        if (statusDiv) statusDiv.innerHTML = '⚙️ Режим редактирования: ВЫКЛ';
+        showToast('🔒 Режим редактирования ВЫКЛЮЧЕН');
+    }
+    refreshServices();
+    setupDaysHandlers();
+}
+
+function refreshAll() {
+    refreshServices();
+    setupDaysHandlers();
+}
+
+function resetAllData() {
+    if (confirm('⚠️ ВНИМАНИЕ! Это удалит ВСЕ изменения из облака и локально. Продолжить?')) {
+        servicesData = {};
+        eventsData = {};
+        serviceNamesData = {};
+        saveToCloud();
+        saveToLocal();
+        showToast('🔄 Все данные сброшены! Обновите страницу');
+        setTimeout(() => location.reload(), 1500);
+    }
+}
+
+function setupPasswordSystem() {
+    const lockBtn = document.getElementById('lockBtn');
+    const modal = document.getElementById('passwordModal');
+    const submitBtn = document.getElementById('submitPassword');
+    const closeBtn = document.getElementById('closePasswordModal');
+    const passwordInput = document.getElementById('passwordInput');
+    const errorDiv = document.getElementById('passwordError');
+    const adminPanel = document.getElementById('adminPanel');
+    
+    function openModal() { modal.classList.add('active'); passwordInput.value = ''; errorDiv.innerHTML = ''; passwordInput.focus(); }
+    function closeModal() { modal.classList.remove('active'); }
+    function checkPassword() {
+        if (passwordInput.value === LOCK_PASSWORD) {
+            closeModal();
+            adminPanel.classList.add('visible');
+            showToast('🔓 Добро пожаловать!');
+        } else {
+            errorDiv.innerHTML = '❌ Неверный пароль!';
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    }
+    if (lockBtn) lockBtn.onclick = openModal;
+    if (submitBtn) submitBtn.onclick = checkPassword;
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (passwordInput) passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkPassword(); });
+    if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    
+    document.getElementById('enableEditBtn').onclick = () => setEditMode(true);
+    document.getElementById('disableEditBtn').onclick = () => setEditMode(false);
+    document.getElementById('saveDataBtn').onclick = () => saveToCloud();
+    document.getElementById('resetDataBtn').onclick = () => resetAllData();
+}
+
+function setupGallery() {
+    const images = document.querySelectorAll('.gallery-img');
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('galleryImage');
+    const closeBtn = document.getElementById('closeGalleryBtn');
+    images.forEach(img => { img.addEventListener('click', () => { modalImg.src = img.src; modal.classList.add('active'); }); });
+    if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
+    if (modal) modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('active'); };
+}
+
+function setupToggle() {
+    const toggleBtn = document.getElementById('toggleServicesBtn');
+    const content = document.getElementById('servicesContent');
+    if (toggleBtn && content) {
+        toggleBtn.onclick = () => {
+            content.classList.toggle('show');
+            toggleBtn.textContent = content.classList.contains('show') ? '📋 Скрыть служения ' : '📋 Доступные вакантные служения';
+        };
+    }
+    const dailyBtn = document.getElementById('toggleDailyBtn');
+    const dailyCont = document.getElementById('dailyContent');
+    if (dailyBtn && dailyCont) {
+        dailyBtn.onclick = () => {
+            dailyCont.classList.toggle('show');
+            dailyBtn.textContent = dailyCont.classList.contains('show') ? '📖 Скрыть ежедневник' : '📖 Ежедневник';
+            if (dailyCont.classList.contains('show')) renderDaily();
+        };
+    }
+}
+
+function setupDayModalClose() {
+    const closeBtn = document.getElementById('closeDayModal');
+    const modal = document.getElementById('dayModal');
+    if (closeBtn && modal) {
+        closeBtn.onclick = () => modal.style.display = 'none';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    }
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', () => {
+    setupGoogleSender();
+    setupGallery();
+    setupToggle();
+    setupDayModalClose();
+    setupPasswordSystem();
+    loadFromCloud();
+    renderDaily(); // предварительно рендерим, но контент скрыт до клика
+});
+</script>
+
+<!-- <script>
+  // Регистрация Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/MiraAN3/sw.js').then(function(registration) {
+        console.log('Service Worker зарегистрирован с областью: ', registration.scope);
+      }).catch(function(error) {
+        console.log('Ошибка регистрации Service Worker: ', error);
+      });
+    });
+  }
+</script> -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/MiraAN6/sw.js')
+      .then(reg => console.log('SW зарегистрирован', reg))
+      .catch(err => console.log('SW ошибка', err));
+  }
+</script>
+</body>
+</html>
