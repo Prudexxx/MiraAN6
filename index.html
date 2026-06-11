@@ -1140,12 +1140,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 </script> -->
+// Добавьте в index.html перед закрывающим тегом </body>
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/MiraAN6/sw.js')
-      .then(reg => console.log('SW зарегистрирован', reg))
-      .catch(err => console.log('SW ошибка', err));
-  }
+// Регистрация Service Worker с автоматическим обновлением
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/MiraAN3/sw.js')
+    .then(registration => {
+      console.log('Service Worker зарегистрирован');
+
+      // Проверка обновлений при загрузке страницы
+      registration.update();
+
+      // Автоматическое обновление страницы при активации нового Service Worker
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // Новая версия готова, обновляем страницу
+            console.log('Обновление найдено, перезагружаем страницу...');
+            
+            // Отправляем сообщение Service Worker для пропуска ожидания
+            newWorker.postMessage('skipWaiting');
+            
+            // Перезагружаем страницу через 1 секунду
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        });
+      });
+    })
+    .catch(error => {
+      console.error('Ошибка регистрации Service Worker:', error);
+    });
+}
 </script>
 </body>
 </html>
